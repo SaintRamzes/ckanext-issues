@@ -1,13 +1,14 @@
 # Translations template for ckanext-issues.
-# Copyright (C) 2018 ORGANIZATION
+# Copyright (C) 2019 ORGANIZATION
 # This file is distributed under the same license as the ckanext-issues project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-09 15:10+0000\n"
+"POT-Creation-Date: 2019-03-10 23:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -315,6 +316,15 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/organization_issues.html:8
+#: ckanext/issues/templates/issues/organization_issues.html:22
+#: ckanext/issues/templates/issues/show.html:13
+msgid "Issues"
+msgstr ""
+
 #: ckanext/issues/templates/issues/base_form_page.html:14
 msgid "What are issues?"
 msgstr ""
@@ -376,14 +386,6 @@ msgstr ""
 
 #: ckanext/issues/templates/issues/confirm_delete.html:11
 msgid "Are you sure you want to delete issue - {0}?"
-msgstr ""
-
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/organization_issues.html:8
-#: ckanext/issues/templates/issues/organization_issues.html:22
-#: ckanext/issues/templates/issues/show.html:13
-msgid "Issues"
 msgstr ""
 
 #: ckanext/issues/templates/issues/dataset.html:26
@@ -502,35 +504,35 @@ msgstr ""
 msgid "Login to comment"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:248
+#: ckanext/issues/templates/issues/show.html:249
 msgid "All issues of dataset"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:248
+#: ckanext/issues/templates/issues/show.html:249
 msgid "All issues of this dataset"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:256
+#: ckanext/issues/templates/issues/show.html:258
 msgid "Assignee"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:263
+#: ckanext/issues/templates/issues/show.html:265
 msgid "This issue has been assigned to an administrator for the publisher"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:265
+#: ckanext/issues/templates/issues/show.html:267
 msgid "No one"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:271
+#: ckanext/issues/templates/issues/show.html:273
 msgid "Change Assignee"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:276
+#: ckanext/issues/templates/issues/show.html:278
 msgid "Username"
 msgstr ""
 
-#: ckanext/issues/templates/issues/show.html:281
+#: ckanext/issues/templates/issues/show.html:283
 msgid "Assign"
 msgstr ""
 

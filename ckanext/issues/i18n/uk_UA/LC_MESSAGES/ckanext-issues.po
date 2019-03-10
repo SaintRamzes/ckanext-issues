@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-issues 0.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-09 15:10+0000\n"
+"POT-Creation-Date: 2019-03-10 23:14+0200\n"
 "PO-Revision-Date: 2018-03-20 22:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: uk_UA\n"
@@ -319,6 +319,15 @@ msgstr "Наразі немає жодних пропозицій"
 msgid "Datasets"
 msgstr "Набори даних"
 
+#: ckanext/issues/templates/issues/base.html:11
+#: ckanext/issues/templates/issues/dataset.html:14
+#: ckanext/issues/templates/issues/dataset.html:20
+#: ckanext/issues/templates/issues/organization_issues.html:8
+#: ckanext/issues/templates/issues/organization_issues.html:22
+#: ckanext/issues/templates/issues/show.html:13
+msgid "Issues"
+msgstr "Пропозиції"
+
 #: ckanext/issues/templates/issues/base_form_page.html:14
 msgid "What are issues?"
 msgstr "Що таке пропозиції?"
@@ -381,14 +390,6 @@ msgstr "Підтвердити видалення"
 #: ckanext/issues/templates/issues/confirm_delete.html:11
 msgid "Are you sure you want to delete issue - {0}?"
 msgstr "Ви впевнені, що бажаєте видалити пропозицію - {0}?"
-
-#: ckanext/issues/templates/issues/dataset.html:14
-#: ckanext/issues/templates/issues/dataset.html:20
-#: ckanext/issues/templates/issues/organization_issues.html:8
-#: ckanext/issues/templates/issues/organization_issues.html:22
-#: ckanext/issues/templates/issues/show.html:13
-msgid "Issues"
-msgstr "Пропозиції"
 
 #: ckanext/issues/templates/issues/dataset.html:26
 #: ckanext/issues/templates/issues/organization_issues.html:27
@@ -508,35 +509,35 @@ msgstr "Коментар"
 msgid "Login to comment"
 msgstr "Увійдіть, щоб коментувати"
 
-#: ckanext/issues/templates/issues/show.html:248
+#: ckanext/issues/templates/issues/show.html:249
 msgid "All issues of dataset"
 msgstr "Всі пропозиції набору даних"
 
-#: ckanext/issues/templates/issues/show.html:248
+#: ckanext/issues/templates/issues/show.html:249
 msgid "All issues of this dataset"
 msgstr "Всі пропозиції"
 
-#: ckanext/issues/templates/issues/show.html:256
+#: ckanext/issues/templates/issues/show.html:258
 msgid "Assignee"
 msgstr "Призначено"
 
-#: ckanext/issues/templates/issues/show.html:263
+#: ckanext/issues/templates/issues/show.html:265
 msgid "This issue has been assigned to an administrator for the publisher"
 msgstr "Ця пропозиція була закріплена за адміністратором розпорядника"
 
-#: ckanext/issues/templates/issues/show.html:265
+#: ckanext/issues/templates/issues/show.html:267
 msgid "No one"
 msgstr "Нікого"
 
-#: ckanext/issues/templates/issues/show.html:271
+#: ckanext/issues/templates/issues/show.html:273
 msgid "Change Assignee"
 msgstr "Змінити уповноваженого"
 
-#: ckanext/issues/templates/issues/show.html:276
+#: ckanext/issues/templates/issues/show.html:278
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: ckanext/issues/templates/issues/show.html:281
+#: ckanext/issues/templates/issues/show.html:283
 msgid "Assign"
 msgstr "Закріпити"
 
