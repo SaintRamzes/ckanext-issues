@@ -1,3 +1,4 @@
+# coding=utf-8
 import logging
 from datetime import datetime
 
@@ -19,7 +20,7 @@ except ImportError:
 
 from pylons import config
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy import desc
+from sqlalchemy import desc, or_
 
 _get_or_bust = logic.get_or_bust
 
@@ -501,7 +502,7 @@ def issue_comment_create(context, data_dict):
 def organization_users_autocomplete(context, data_dict):
     session = context['session']
     user = context['user']
-    q = data_dict['q']
+    q = data_dict['q'].encode('utf-8')
     organization_id = data_dict['organization_id']
     limit = data_dict.get('limit', 20)
     query = session.query(model.User.id, model.User.name,
@@ -512,13 +513,13 @@ def organization_users_autocomplete(context, data_dict):
         .filter(model.Member.state == 'active')\
         .filter(model.User.state != model.State.DELETED)\
         .filter(model.User.id == model.Member.table_id)\
-        .filter(model.User.name.ilike('{0}%'.format(q)))\
+        .filter(or_(model.User.name.ilike('{0}%'.format(q)), model.User.fullname.ilike('{0}%'.format(q)), model.User.id.ilike('{0}%'.format(q))))\
         .distinct()\
         .limit(limit)
 
     users = []
     for user in query.all():
-        user_dict = dict(user.__dict__)
+        user_dict = user._asdict()
         user_dict.pop('_labels', None)
         users.append(user_dict)
     return users

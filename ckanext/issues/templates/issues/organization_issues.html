@@ -8,93 +8,93 @@
 {% block subtitle %}{{ _('Issues') }} - {{ super() }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
-  <li>{% link_for org.title|truncate(35), controller='organization', action='read', id=org.name %}</li>
-  <li class="active">{% link_for 'Issues', named_route='issues_for_organization', org_id=org.name %}</li>
+    {% link_for _('Organizations'), controller='organization', action='index' %}
+    {% link_for org.title|truncate(35), controller='organization', action='read', id=org.name %}
+    {% link_for 'Issues', named_route='issues_for_organization', org_id=org.name %}
 {% endblock %}
 
 {% block primary_content %}
-<section class="module issues-home">
-  <div class="module-content">
-    <div class="header">
-      <h1 class="page-heading">
-      {% block page_heading %}
-        {{ _('Issues') }} - {{org.title}}
-      {% endblock %}
-      </h1>
-    </div>
-    <div>
-      {% snippet 'snippets/search_form.html', type='issue', query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search issues...'), no_bottom_border=true, no_title=true %}
-      <h2>
-        {{ ungettext('{number} issue found', '{number} issues found', pagination.total_count) .format(number=pagination.total_count) }}
-      </h2>
-    </div>
-    <div id="issue-page">
-      {% if issues %}
-        <div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Dataset</th>
-                <th>Reported</th>
-                <th>Status</th>
-                <th>Comments</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for issue in issues %}
-             {% set issue_url = issue.ckan_url %}
-              <tr class="{{'success' if issue.resolved else 'error'}}">
-                <td>
-                  <a href="{{ issue_url }}">
-                    <span class="list-group-item-number">#{{issue.id}}</span>
-                  </a>
-                </td>
-                <td>
-                  <a href="{{ issue_url }}">
-                    {{issue.title}}
-                  </a>
-                  {% if issue.resource %}
-                    <br/><br/>
-                    Resource: {{issue.resource.name or issue.resource.description}}
-                  {% endif %}
-                  {% if issue.visibility == 'hidden' %}
-                    <br/><br/>
-                    <div class="issue-comment-label">
-                      Reported as spam/abuse
+    <section class="module issues-home">
+        <div class="module-content">
+            <div class="header">
+                <h1 class="page-heading">
+                    {% block page_heading %}
+                        {{ _('Issues') }} - {{org.title}}
+                    {% endblock %}
+                </h1>
+            </div>
+            <div>
+                {% snippet 'snippets/search_form.html', type='issue', query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search issues...'), no_bottom_border=true, no_title=true %}
+                <h2>
+                    {{ ungettext('{number} issue found', '{number} issues found', pagination.total_count) .format(number=pagination.total_count) }}
+                </h2>
+            </div>
+            <div id="issue-page">
+                {% if issues %}
+                    <div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                <th>Dataset</th>
+                                <th>Reported</th>
+                                <th>Status</th>
+                                <th>Comments</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for issue in issues %}
+                                {% set issue_url = h.url_for('issues_show', dataset_id=issue.dataset_id, issue_number=issue.number) %}
+                                <tr class="{{'success' if issue.resolved else 'error'}}">
+                                    <td>
+                                        <a href="{{ issue_url }}">
+                                            <span class="list-group-item-number">#{{issue.id}}</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ issue_url }}">
+                                            {{issue.title}}
+                                        </a>
+                                        {% if issue.resource %}
+                                            <br/><br/>
+                                            Resource: {{issue.resource.name or issue.resource.description}}
+                                        {% endif %}
+                                        {% if issue.visibility == 'hidden' %}
+                                            <br/><br/>
+                                            <div class="issue-comment-label">
+                                                Reported as spam/abuse
+                                            </div>
+                                        {%endif%}
+                                    </td>
+                                    <td>{{issue.dataset.title}}</td>
+                                    <td><span class="timeago" title="{{h.render_datetime(issue.created, with_hours=True)}}">{{ h.time_ago_from_timestamp(issue.created) }}</span></td>
+                                    <td>{% if issue.resolved %}<span title="Closed by {{issue.resolver}} on {{issue.resolved}}">closed</span>{% else %}open{% endif %}</td>
+                                    <td>
+                                        {% if issue.comment_count %}
+                                            <i class="icon-comments"></i>
+                                            {{ _('%s comments') % (issue.comment_count) }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                  {%endif%}
-                </td>
-                <td>{{issue.dataset.title}}</td>
-                <td><span class="timeago" title="{{h.render_datetime(issue.created, with_hours=True)}}">{{ h.time_ago_from_timestamp(issue.created) }}</span></td>
-                <td>{% if issue.resolved %}<span title="Closed by {{issue.resolver}} on {{issue.resolved}}">closed</span>{% else %}open{% endif %}</td>
-                <td>
-                  {% if issue.comment_count %}
-                    <i class="icon-comments"></i>
-                    {{ _('%s comments') % (issue.comment_count) }}
-                  {% endif %}
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-          </table>
-      </div>
-      {% else %}
-        <span>
-            {% block no_issues %}
-            There are currently no issues for 
-            <a href="{{ h.url_for(controller='organization', action='read', id=org.name) }}">
-            {{org.title}}
-            </a>
-            {% endblock %}
-        </span>
-      {% endif %}
-    </div>
-    {{ common.page_selector(pagination, issues_per_page) }}
-  </div>
-</section>
+                {% else %}
+                    <span>
+                        {% block no_issues %}
+                            There are currently no issues for
+                            <a href="{{ h.url_for(controller='organization', action='read', id=org.name) }}">
+                                {{org.title}}
+                            </a>
+                        {% endblock %}
+                    </span>
+                {% endif %}
+            </div>
+            {{ common.page_selector(pagination, issues_per_page) }}
+        </div>
+    </section>
 {% endblock %}
 
 {% block secondary_content %}

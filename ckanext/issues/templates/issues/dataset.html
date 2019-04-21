@@ -3,8 +3,8 @@
 {% import "issues/common.html" as common with context %}
 
 {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="/ckanext-issues/style.css" />
+    {{ super() }}
+    <link rel="stylesheet" href="/ckanext-issues/style.css" />
 {% endblock %}
 
 {% set pkg = c.pkg %}
@@ -14,34 +14,55 @@
 {% block subtitle %}{{ _('Issues') }} - {{ super() }}{% endblock %}
 
 {% block primary_content_inner %}
-<section class="module issues-home">
-    <div class="header">
-      <h1 class="page-heading">
-        {{ _('Issues') }}
-        <div class="issues-actions">
-          {{ h.nav_link(_('New Issue'), named_route='issues_new', dataset_id=pkg.name, class_='btn btn-success') }}
+    <div class="offers-list">
+        <div class="tab-buttons">
+            {{ common.search_options_sidebar(user_can_change_visibility=h.check_access('package_update', {'id': pkg.id }), url_params={'dataset_id':pkg['id']}) }}
+            {{ h.nav_link(_('New Issue'), named_route='issues_new', dataset_id=pkg.name, class_='button') }}
         </div>
-      </h1>
-   <div>
-      {% snippet 'snippets/search_form.html', type='issue', count=pagination.total_count, query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search issues...'), no_bottom_border=true, no_title=true %}
+        {% snippet 'snippets/search_form.html', type='issue', count=pagination.total_count, query=q, fields=(('page', pagination.page), ('per_page', pagination.per_page), ('status', status), ('visibility', visibility)), sorting=filters, sorting_selected=sort, placeholder=_('Search issues...'), no_bottom_border=true, no_title=true %}
+
+        {% if issues %}
+            {% for issue in issues %}
+                {{ common.issue_item(issue, pkg, c.user) }}
+            {% endfor %}
+        {% else %}
+            <p class="empty">{{ _('No issues') }}</p>
+        {% endif %}
+
+        {{ common.page_selector(pagination, issues_per_page, url_params={'dataset_id': pkg['id']}) }}
     </div>
-  {% if issues %}
-    <ul id="issue-list" class="issue-list-group list-group">
-      {% for issue in issues %}
-        {{ common.issue_item(issue, pkg, c.user) }}
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty">{{ _('No issues') }}</p>
-  {% endif %}
-  </div>
-
-  {{ common.page_selector(pagination, issues_per_page, url_params={'dataset_id': pkg['id']}) }}
-</section>
 {% endblock %}
 
-{% block secondary_content %}
-  {% snippet "package/snippets/info.html", pkg=pkg %}
-  {{ common.search_options_sidebar(user_can_change_visibility=h.check_access('package_update', {'id': pkg.id }), url_params={'dataset_id':pkg['id']}) }}
-{% endblock %}
+{#{% block secondary_content %}#}
+{#    {% snippet "package/snippets/info.html", pkg=pkg %}#}
+{#    {{ common.search_options_sidebar(user_can_change_visibility=h.check_access('package_update', {'id': pkg.id }), url_params={'dataset_id':pkg['id']}) }}#}
+{#{% endblock %}#}
 
+
+<div class="offers-list">
+    <div class="offers-list-title">Знайдено 5 пропозицій</div>
+    <div class="offers-list-item offers-list-item--opened">
+        <div class="offers-list-item-left-column"><a class="offers-list-item__title" href="">Помилки в назвах областей</a>
+            <div class="offers-list-item-account-comments">Створив<a class="offers-list-item__link" href="">dexxtr</a>
+                <div class="offers-list-item__separator"></div>Оновлено 14 днів тому
+                <div class="offers-list-item__separator"></div><a class="offers-list-item__link" href="">2 коментаря</a>
+            </div>
+        </div>
+        <div class="offers-list-item-right-column">
+            <div class="offers-list-item-number">#3</div>
+            <div class="offers-list-item-created">Створено 14 грудня 2018</div>
+        </div>
+    </div>
+    <div class="offers-list-item offers-list-item--closed">
+        <div class="offers-list-item-left-column"><a class="offers-list-item__title" href="">Помилки в назвах областей</a>
+            <div class="offers-list-item-account-comments">Створив<a class="offers-list-item__link" href="">dexxtr</a>
+                <div class="offers-list-item__separator"></div>Оновлено 14 днів тому
+                <div class="offers-list-item__separator"></div><a class="offers-list-item__link" href="">2 коментаря</a>
+            </div>
+        </div>
+        <div class="offers-list-item-right-column">
+            <div class="offers-list-item-number">#3</div>
+            <div class="offers-list-item-created">Створено 14 грудня 2018</div>
+        </div>
+    </div>
+</div>

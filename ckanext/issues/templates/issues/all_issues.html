@@ -5,21 +5,21 @@
 {% block subtitle %}{{ _('All Issues') }} - {{ super() }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for 'All Issues', named_route='all_issues_page' %}</li>
+    <li class="active">{% link_for 'All Issues', named_route='all_issues_page' %}</li>
 {% endblock %}
 
 {% block page_heading %}
-  {{ _('All Issues') }}
+    {{ _('All Issues') }}
 {% endblock %}
 
 {% block secondary_content %}
-  {% if c.userobj.sysadmin %}
-    {{ common.search_options_sidebar(user_can_change_visibility=True) }}
-  {% else %}
-    {{ common.search_options_sidebar(user_can_change_visibility=False) }}
-   {% endif %}
+    {% if c.userobj.sysadmin %}
+        {{ common.search_options_sidebar(user_can_change_visibility=True) }}
+    {% else %}
+        {{ common.search_options_sidebar(user_can_change_visibility=False) }}
+    {% endif %}
 {% endblock %}
 
 {% block no_issues %}
-  {% trans %}There are currently no issues{% endtrans %}
+    {% trans %}There are currently no issues{% endtrans %}
 {% endblock %}

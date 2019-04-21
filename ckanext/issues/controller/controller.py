@@ -524,7 +524,7 @@ def all_issues(get_query_dict):
 
 def _search_issues(dataset_id=None,
                    organization_id=None,
-                   status=issuemodel.ISSUE_STATUS.open,
+                   status=issuemodel.ISSUE_STATUS.all,
                    sort='newest',
                    visibility=None,
                    abuse_status=None,

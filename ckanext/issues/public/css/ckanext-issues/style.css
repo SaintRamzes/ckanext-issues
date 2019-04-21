@@ -179,6 +179,14 @@ h1.page-heading .issues-actions .btn {
   float: none;
 }
 
+.proposition-comments-item__avatar img {
+  border-radius: 50%;
+}
+
+.proposition-comments-item__author-name a{
+  color: #003094;
+}
+
 /*****************************************
   Issue homes - dataset, organization, all
   ****************************************/

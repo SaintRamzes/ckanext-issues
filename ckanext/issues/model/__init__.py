@@ -84,7 +84,7 @@ DEFAULT_CATEGORIES = {u"broken-resource-link": "Broken data link",
                       u"add-description": "No description of the data",
                       u"other": "Other"}
 
-ISSUE_STATUS = domain_object.Enum('open', 'closed')
+ISSUE_STATUS = domain_object.Enum('open', 'closed', 'all')
 
 
 class IssueCategory(object):
@@ -119,7 +119,7 @@ class IssueCategory(object):
 # make a nice user dict object
 def _user_dict(user):
     out = model_dictize.user_dictize(user, context={'model': model})
-    out['ckan_url'] = h.url_for('user_datasets', id=user.name)
+    out['ckan_url'] = h.url_for('user.read', id=user.name)
     out['gravatar'] = h.gravatar(user.email_hash, size=48)
     out['gravatar_url'] = '''//gravatar.com/avatar/%s?s=%d''' % (user.email_hash, 48)
     return out
@@ -227,7 +227,7 @@ class Issue(domain_object.DomainObject):
             query = query.filter(or_(cls.title.ilike(search_expr),
                                      cls.description.ilike(search_expr)))
 
-        if status:
+        if status not in [None, 'all', 'All', False]:
             query = query.filter(cls.status == status)
         if visibility:
             query = query.filter(cls.visibility == visibility)
@@ -259,15 +259,25 @@ class Issue(domain_object.DomainObject):
             comment_count,
             last_updated,
         )
-        query = cls.apply_filters_to_an_issue_query(
-            query,
-            organization_id=organization_id,
-            dataset_id=dataset_id,
-            status=status,
-            abuse_status=abuse_status,
-            q=q,
-            visibility=visibility,
-            include_sub_organizations=include_sub_organizations)
+        if status in [None, 'all', 'All']:
+            query = cls.apply_filters_to_an_issue_query(
+                query,
+                organization_id=organization_id,
+                dataset_id=dataset_id,
+                abuse_status=abuse_status,
+                q=q,
+                visibility=visibility,
+                include_sub_organizations=include_sub_organizations)
+        else:
+            query = cls.apply_filters_to_an_issue_query(
+                query,
+                organization_id=organization_id,
+                dataset_id=dataset_id,
+                status=status,
+                abuse_status=abuse_status,
+                q=q,
+                visibility=visibility,
+                include_sub_organizations=include_sub_organizations)
         if sort:
             try:
                 query = IssueFilter.get_filter(sort)(query)
