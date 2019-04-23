@@ -185,7 +185,7 @@ dataset - package object
         </div>
         <div class="proposition-title">{{issue.title}}<span>#{{issue.number}}</span></div>
         <div class="proposition-state-bar">
-            <div class="proposition-status">{{ _(issue.status.title()) }}</div>
+            <div class="proposition-status proposition-status--{{ issue.status }}">{{ _(issue.status.title()) }}</div>
             <div class="proposition-creator">
                 <div class="proposition-creator-text">Створив</div><a class="proposition-creator-title" href="{{issue.user.ckan_url}}">{{issue.user.name}}</a>
             </div>
